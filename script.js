@@ -15,6 +15,18 @@ var formattedTime = hours + ":" + minutes + " " + ampm;
 
 }
 
+function getcurrentdate(){
+
+    const date = new Date();
+    return date;
+}
+
+var input = document.getElementById("userInput");
+input.addEventListener("keypress",function(event){
+    if(event.key === "Enter"){
+        event.preventDefault();
+    document.getElementById("btn").click();
+}});
 
 function sendMessage(){
     var userInput = document.getElementById("userInput");
@@ -46,7 +58,20 @@ function processMessage(message){
        var formattedTime = getcurrentTime();
        response = "The current time is" + formattedTime;
     }
-    else {response = "I did not understand the question. Please check and try again."}
+    else if(message.includes('date')){
+        var date = getcurrentdate();
+        response = "Today is " + date;
+    }
+    else if (message.includes('tell me a joke')){
+        response =  "Why don't scientists trust atoms? Because they make up everything!";
+    }
+    else if (message.includes('convert kilograms to pounds') || message.includes('convert kgs to pounds')){
+        response =  "Sure, 1 kilogram is approximately 2.20462 pounds.";
+    }
+    else if (message.includes('recommend me a good movie')){
+        response =  "Certainly, 'Inception' is a popular science fiction movie.";
+    }
+    else {response = "My apologies. Its either the question having some kind of mistake or I do not have sufficient information."}
 
     setTimeout(function(){
         appendMessage("Chatbot",response)
